@@ -22,9 +22,9 @@ class LoginState extends State<Login> {
         backgroundColor: Colors.transparent,
         body: Stack(children: [
           Container(
-            padding: const EdgeInsets.only(left: 35, top: 80),
+            padding: const EdgeInsets.only(left: 22, top: 80),
             child: const Text(
-              "Welcome\nBack",
+              "ShrimpFriedRice",
               style: TextStyle(color: Colors.white, fontSize: 33),
             ),
           ),

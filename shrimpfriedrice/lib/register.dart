@@ -26,7 +26,7 @@ class RegisterState extends State<Register> {
         backgroundColor: Colors.transparent,
         body: Stack(children: [
           Container(
-            padding: const EdgeInsets.only(left: 35, top: 80),
+            padding: const EdgeInsets.only(left: 35, top: 35),
             child: const Text(
               "Create\nAccount",
               style: TextStyle(color: Colors.white, fontSize: 33),
@@ -113,7 +113,7 @@ class RegisterState extends State<Register> {
                       ),
                     ]),
                 const SizedBox(
-                  height: 40,
+                  height: 35,
                 ),
                 Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
