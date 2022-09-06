@@ -1,0 +1,13 @@
+//package com.example.sept_project.controller;
+//
+//import com.example.sept_project.model.Patient;
+//import com.example.sept_project.repository.PatientRepository;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.web.bind.annotation.*;
+//import org.springframework.http.ResponseEntity;
+////import javax.validation.Valid;
+//import java.util.List;
+//@RestController
+//public class PatientController {
+//
+//}

@@ -2,6 +2,7 @@ package com.example.sept_project.model;
 import javax.persistence.*;
 import java.util.Date;
 
+@Entity
 public class Patient {
     @Id
     @GeneratedValue
