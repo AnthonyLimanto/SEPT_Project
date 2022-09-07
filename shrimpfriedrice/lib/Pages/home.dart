@@ -12,11 +12,28 @@ class HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Welcome, User")
+        title: const Text("Home")
       ),
-      body: const Center(
-        child: Text("Hello World")
-      ),
+      body: ListView(
+        children: const <Widget>[
+          Center(
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 30.0),
+                child: Text(
+                  "Welcome, [User]",
+                  style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)
+              )
+              )
+          ),
+          Text("My appointments"),
+          Text("My medication"),
+          Text("Book an appointment"),
+          Text("Chat with a doctor"),
+          Text("Appointment history"),
+          Text("Manage appointments"),
+          Text("Account settings")
+        ]
+      )
     );
   }
 }
