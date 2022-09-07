@@ -1,14 +1,22 @@
 package com.example.sept_project.model;
-import javax.persistence.*;
-import java.util.Date;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "Patient")
 public class Patient {
     @Id
     @GeneratedValue
     private Long id;
 
     private String name;
+    public Patient(){
+        super();
+    }
+
 
     public Patient(Long id, String name) {
         this.id = id;

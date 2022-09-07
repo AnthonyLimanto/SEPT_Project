@@ -1,8 +1,12 @@
 package com.example.sept_project.model;
-import javax.persistence.*;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-@Table(name = "doctor")
+@Table(name = "Doctor")
 
 public class Doctor {
     @Id
