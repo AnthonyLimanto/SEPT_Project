@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shrimpfriedrice/Components/appointmentList.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -8,30 +9,57 @@ class Home extends StatefulWidget {
 }
 
 class HomeState extends State<Home> {
+  String name = 'Bob';
+  final textButtonStyle = TextButton.styleFrom(
+    padding: const EdgeInsets.all(20.0)
+  );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Home")
-      ),
       body: ListView(
-        children: const <Widget>[
+        padding: EdgeInsets.all(50.0),
+        children: <Widget>[
           Center(
               child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 30.0),
+                padding: const EdgeInsets.symmetric(vertical: 30.0),
                 child: Text(
-                  "Welcome, [User]",
-                  style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)
+                  "Welcome, $name",
+                  style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold)
               )
               )
           ),
-          Text("My appointments"),
-          Text("My medication"),
-          Text("Book an appointment"),
-          Text("Chat with a doctor"),
-          Text("Appointment history"),
-          Text("Manage appointments"),
-          Text("Account settings")
+          const AppointmentList(),
+          TextButton(
+            style: textButtonStyle,
+            onPressed: () {},
+            child: const Text("My medication"),
+          ),
+          TextButton(
+            style: textButtonStyle,
+            onPressed: () {},
+            child: const Text("Book an appointment"),
+          ),
+          TextButton(
+            style: textButtonStyle,
+            onPressed: () {},
+            child: const Text("Chat with a doctor"),
+          ),
+          TextButton(
+            style: textButtonStyle,
+            onPressed: () {},
+            child: const Text("Appointment history"),
+          ),
+          TextButton(
+            style: textButtonStyle,
+            onPressed: () {},
+            child: const Text("Manage appointments"),
+          ),
+          TextButton(
+            style: textButtonStyle,
+            onPressed: () {},
+            child: const Text("Account settings"),
+          ),
         ]
       )
     );
