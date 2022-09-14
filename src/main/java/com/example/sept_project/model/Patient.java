@@ -1,9 +1,7 @@
 package com.example.sept_project.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "Patient")
@@ -13,6 +11,10 @@ public class Patient {
     private Long id;
 
     private String name;
+
+    @OneToMany (mappedBy = "id", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Booking> bookings;
+
     public Patient(){
         super();
     }

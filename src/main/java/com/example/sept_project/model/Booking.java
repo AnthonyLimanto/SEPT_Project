@@ -12,10 +12,12 @@ public class Booking {
     @GeneratedValue
     private Long id;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "patient_id")
     private Patient patient;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "doctor_id")
     private Doctor doctor;
 
     private Date date;
