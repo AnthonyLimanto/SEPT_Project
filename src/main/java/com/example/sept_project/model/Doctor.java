@@ -8,7 +8,8 @@ import java.util.List;
 
 public class Doctor {
     @Id
-    @GeneratedValue
+    @SequenceGenerator( name = "doctor_sequence", sequenceName = "doctor_sequence", allocationSize = 1)
+    @GeneratedValue (strategy = GenerationType.SEQUENCE, generator = "doctor_sequence")
     private Long id;
 
     private String name;
@@ -17,6 +18,9 @@ public class Doctor {
 
     @OneToMany (mappedBy = "id", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Booking> bookings;
+
+    @OneToMany (mappedBy = "id", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Unavailability> unavailabilities;
 
     public Doctor(){
         super();
@@ -46,6 +50,22 @@ public class Doctor {
 
     public String getClinic() {
         return clinic;
+    }
+
+    public List<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
+    }
+
+    public List<Unavailability> getUnavailabilities() {
+        return unavailabilities;
+    }
+
+    public void setUnavailability(List<Unavailability> Unavailabilities) {
+        this.unavailabilities = Unavailabilities;
     }
 
     public void setClinic(String clinic) {

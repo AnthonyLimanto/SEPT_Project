@@ -9,7 +9,8 @@ import java.util.Date;
 public class Booking {
 
     @Id
-    @GeneratedValue
+    @SequenceGenerator( name = "booking_sequence", sequenceName = "booking_sequence", allocationSize = 1)
+    @GeneratedValue (strategy = GenerationType.SEQUENCE, generator = "booking_sequence")
     private Long id;
 
     @ManyToOne
