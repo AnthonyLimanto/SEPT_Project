@@ -1,0 +1,24 @@
+import 'package:flutter/material.dart';
+
+class AppointmentForm extends StatefulWidget {
+  const AppointmentForm({Key? key}) : super(key: key);
+
+  @override
+  AppointmentFormState createState() => AppointmentFormState();
+}
+
+class AppointmentFormState extends State<AppointmentForm> {
+  final _formKey = GlobalKey<AppointmentFormState>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+        key: _formKey,
+        child: Column(
+            children: <Widget>[
+              TextFormField(),
+            ]
+        )
+    )
+  }
+}
