@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.print.Doc;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,7 +19,13 @@ public class DoctorController {
 //  get all notes
     @GetMapping(path = "/Doctor/getAll")
     public List<Doctor> getAllNotes() {
-        return  DoctorRepository.findAll();
+        List<Doctor> doctors = new ArrayList<Doctor>();
+        try{
+            return  DoctorRepository.findAll();
+        }catch(Exception e){
+            return doctors;
+        }
+
     }
 //  create doctor
     @PostMapping(path = "/Doctor/add")
