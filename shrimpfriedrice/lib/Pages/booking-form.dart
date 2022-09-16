@@ -12,8 +12,8 @@ class AppointmentFormState extends State<AppointmentForm> {
 
   /* Contains the form values */
   final _fields = {
+    "symptoms": "",
     "description": "",
-    "doctorId": -1,
   };
 
   handleSubmit() {
@@ -30,6 +30,16 @@ class AppointmentFormState extends State<AppointmentForm> {
     return Scaffold(
         body: Column(
           children: <Widget>[
+            /* Symptoms */
+            TextFormField(
+              onChanged: (String value) {
+                _fields["symptoms"] = value;
+              },
+              decoration: const InputDecoration(
+                labelText: "Symptoms"
+              ),
+            ),
+
             /* Describe how you feel */
             TextFormField(
               validator: (value) {
