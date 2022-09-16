@@ -3,6 +3,9 @@ import 'package:shrimpfriedrice/Pages/home.dart';
 import 'package:shrimpfriedrice/Pages/login.dart';
 import 'package:shrimpfriedrice/Pages/register.dart';
 import 'package:shrimpfriedrice/Pages/book.dart';
+import 'package:shrimpfriedrice/Pages/medication.dart';
+import 'package:shrimpfriedrice/Components/appointmentList.dart';
+import 'package:shrimpfriedrice/Components/medicationList.dart';
 
 void main() {
   runApp(
@@ -14,6 +17,7 @@ void main() {
           'login': (context) => const Login(),
           'register': (context) => const Register(),
           'book': (context) => const AppointmentForm(),
+          'medication': (context) => const Medication()
         }),
   );
 }

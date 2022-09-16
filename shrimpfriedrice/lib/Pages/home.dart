@@ -9,29 +9,33 @@ class Home extends StatefulWidget {
 }
 
 class HomeState extends State<Home> {
-  String name = 'Bob';
+  String name = 'Ben';
   final textButtonStyle =
       TextButton.styleFrom(padding: const EdgeInsets.all(20.0));
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: ListView(padding: EdgeInsets.all(50.0), children: <Widget>[
+        body: ListView(padding: const EdgeInsets.all(50.0), children: <Widget>[
       Center(
           child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 30.0),
-              child: Text("Welcome, $name",
+              child: Text("Welcome, $name Book your next appointment.",
                   style: const TextStyle(
-                      fontSize: 40, fontWeight: FontWeight.bold)))),
+                      fontSize: 28, fontWeight: FontWeight.bold)))),
       const AppointmentList(),
       TextButton(
         style: textButtonStyle,
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, 'medication');
+        },
         child: const Text("My medication"),
       ),
       TextButton(
         style: textButtonStyle,
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, 'book');
+        },
         child: const Text("Book an appointment"),
       ),
       TextButton(

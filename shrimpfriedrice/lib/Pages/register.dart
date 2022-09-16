@@ -125,7 +125,7 @@ class RegisterState extends State<Register> {
                           Navigator.pushNamed(context, 'login');
                         },
                         child: const Text(
-                          'Login',
+                          'Back',
                           style: TextStyle(
                             decoration: TextDecoration.underline,
                             fontSize: 18,
