@@ -107,7 +107,9 @@ class RegisterState extends State<Register> {
                         backgroundColor: const Color(0xff4c505b),
                         child: IconButton(
                           color: Colors.white,
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushNamed(context, 'login');
+                          },
                           icon: const Icon(Icons.arrow_forward),
                         ),
                       ),

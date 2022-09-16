@@ -14,11 +14,8 @@ class AppointmentFormState extends State<AppointmentForm> {
   Widget build(BuildContext context) {
     return Form(
         key: _formKey,
-        child: Column(
-            children: <Widget>[
-              TextFormField(),
-            ]
-        )
-    )
+        child: Column(children: <Widget>[
+          TextFormField(),
+        ]));
   }
 }
