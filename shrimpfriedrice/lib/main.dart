@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shrimpfriedrice/Pages/home.dart';
 import 'package:shrimpfriedrice/Pages/login.dart';
 import 'package:shrimpfriedrice/Pages/register.dart';
-import 'package:shrimpfriedrice/Pages/book.dart';
+import 'package:shrimpfriedrice/Pages/booking-form.dart';
 
 void main() {
   runApp(
