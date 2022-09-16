@@ -7,7 +7,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:shrimpfriedrice/login.dart';
+import 'package:shrimpfriedrice/Pages/login.dart';
 import 'package:shrimpfriedrice/main.dart';
 
 void main() {
