@@ -62,7 +62,7 @@ public class BookingController {
     }
     //    update booking
     @PutMapping(path = "/Booking/update/{id}")
-    public Booking updateNote(@PathVariable(value = "id") Long bookingId, @RequestBody Booking bookingDetails) throws BookingNotFoundException {
+    public Booking updateNote(@PathVariable(value = "id") Long bookingId, @RequestBody Booking bookingDetails) throws BookingNotFoundException, BookingIsNotAvailableException {
         Booking booking = BookingRepository.findById(bookingId).orElseThrow(() -> new BookingNotFoundException(bookingId));
 
         booking.setDate(bookingDetails.getDate());
@@ -70,9 +70,9 @@ public class BookingController {
 
 //    checks if the booking date is in the specified doctor's unavailabilities
 //    Throws exception for now, later I want to just make it, so it tells the patient that they are unable to make a booking on this day
-        if (booking.getDoctor().getUnavailabilities().contains(booking.getDate())) {
+        if (booking.getDoctor().containsUnavailabilities(booking.getDate())) {
             System.out.println(booking.getDoctor().getName() + " is unavailable on " + booking.getDate());
-            throw new BookingNotFoundException(bookingId);
+            throw new BookingIsNotAvailableException(booking);
         }
 
         Booking updatedBooking = BookingRepository.save(booking);
