@@ -1,6 +1,7 @@
 package com.example.sept_project.model;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -16,11 +17,12 @@ public class Doctor {
 
     private String clinic;
 
-    @OneToMany (mappedBy = "id", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany (mappedBy = "doctor", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Booking> bookings;
 
-    @OneToMany (mappedBy = "id", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany (mappedBy = "doctor", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Unavailability> unavailabilities;
+
 
     public Doctor(){
         super();
@@ -64,8 +66,24 @@ public class Doctor {
         return unavailabilities;
     }
 
-    public void setUnavailability(List<Unavailability> Unavailabilities) {
-        this.unavailabilities = Unavailabilities;
+    public void setUnavailabilities(List<Unavailability> unavailabilities) {
+        this.unavailabilities = unavailabilities;
+    }
+
+    public boolean containsUnavailabilities(Date unavailable) {
+        boolean found = false;
+
+        for (int i = 0; i < this.unavailabilities.size(); i++) {
+            if (this.unavailabilities.get(i).getUnavailable().compareTo(unavailable) == 0){
+                found = true;
+            }
+        }
+
+        return found;
+    }
+
+    public void addUnavailability(Unavailability unavailability) {
+        this.unavailabilities.add(unavailability);
     }
 
     public void setClinic(String clinic) {

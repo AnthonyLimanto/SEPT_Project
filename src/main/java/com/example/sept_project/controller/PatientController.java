@@ -31,7 +31,7 @@ public class PatientController {
         return PatientRepository.findById(patientId);
     }
     //    update patient
-    @GetMapping(path = "/Patient/update/{id}")
+    @PutMapping(path = "/Patient/update/{id}")
     public Patient updateNote(@PathVariable(value = "id") Long patientId, @RequestBody Patient patientDetails) throws PatientNotFoundException {
         Patient patient = PatientRepository.findById(patientId).orElseThrow(() -> new PatientNotFoundException(patientId));
 

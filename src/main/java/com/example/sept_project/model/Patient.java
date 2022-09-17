@@ -13,7 +13,7 @@ public class Patient {
 
     private String name;
 
-    @OneToMany (mappedBy = "id", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany (mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Booking> bookings;
 
     public Patient(){
@@ -37,6 +37,19 @@ public class Patient {
     public String getName() {
         return name;
     }
+
+    public List<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
+    }
+
+    public void addBookings(Booking booking) {
+        this.bookings.add(booking);
+    }
+
 
     public void setName(String name) {
         this.name = name;

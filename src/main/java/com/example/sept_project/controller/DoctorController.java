@@ -2,6 +2,7 @@ package com.example.sept_project.controller;
 
 import com.example.sept_project.execption.DoctorNotFoundException;
 import com.example.sept_project.model.Doctor;
+import com.example.sept_project.model.Unavailability;
 import com.example.sept_project.repository.DoctorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,10 +18,12 @@ public class DoctorController {
 //  get all notes
     @GetMapping(path = "/Doctor/getAll")
     public List<Doctor> getAllNotes() {
+
+
         return  DoctorRepository.findAll();
     }
 //  create doctor
-    @PostMapping(path = "/Doctor/add")
+    @PostMapping(path = "/Doctor/add", consumes = "application/json", produces = "application/json")
     public Doctor createNote(@RequestBody Doctor doctor) {
         return DoctorRepository.save(doctor);
     }
@@ -31,7 +34,7 @@ public class DoctorController {
         return DoctorRepository.findById(doctorId);
     }
 //    update doctor
-    @GetMapping(path = "/Doctor/update/{id}")
+    @PutMapping (path = "/Doctor/update/{id}")
     public Doctor updateNote(@PathVariable(value = "id") Long doctorId, @RequestBody Doctor doctorDetails) throws DoctorNotFoundException {
         Doctor doctor = DoctorRepository.findById(doctorId).orElseThrow(() -> new DoctorNotFoundException(doctorId));
 
@@ -52,4 +55,17 @@ public class DoctorController {
 
         return ResponseEntity.ok().build();
     }
+
+    @PutMapping (path = "/Doctor/{id}/addUnavailable")
+    public Doctor addUnavailable(@PathVariable(value = "id") Long doctorId, @RequestBody Unavailability unavailability) throws DoctorNotFoundException {
+        Doctor doctor = DoctorRepository.findById(doctorId).orElseThrow(() -> new DoctorNotFoundException(doctorId));
+
+        List<Unavailability> newUnava = doctor.getUnavailabilities();
+        newUnava.add(unavailability);
+        doctor.setUnavailabilities(newUnava);
+
+        Doctor updatedDoctor = DoctorRepository.save(doctor);
+        return updatedDoctor;
+    }
+
 }

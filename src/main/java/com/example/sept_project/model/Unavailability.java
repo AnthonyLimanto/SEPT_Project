@@ -1,5 +1,7 @@
 package com.example.sept_project.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -15,6 +17,7 @@ public class Unavailability {
     private Date unavailable;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "doctor_id")
     private Doctor doctor;
 

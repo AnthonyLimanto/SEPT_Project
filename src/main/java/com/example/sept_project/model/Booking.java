@@ -1,7 +1,10 @@
 package com.example.sept_project.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
+
 
 
 @Entity
@@ -14,10 +17,12 @@ public class Booking {
     private Long id;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "patient_id")
     private Patient patient;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "doctor_id")
     private Doctor doctor;
 
@@ -48,6 +53,14 @@ public class Booking {
 
     public void setDoctor(Doctor doctor) {
         this.doctor = doctor;
+    }
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
     }
 
     public Date getDate() {
