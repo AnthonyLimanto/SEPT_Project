@@ -1,54 +1,51 @@
 package com.example.sept_project.controller;
 
-import com.example.sept_project.execption.PatientNotFoundException;
 import com.example.sept_project.model.Patient;
-import com.example.sept_project.repository.PatientRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import com.example.sept_project.service.PatientService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
+@RequestMapping("/patient")
 public class PatientController {
-    @Autowired
-    PatientRepository PatientRepository;
-    //  get all notes
-    @GetMapping(path = "/Patient/getAll")
-    public List<Patient> getAllNotes() {
-        return  PatientRepository.findAll();
-    }
-    //  create patient
-    @PostMapping(path = "/Patient/add")
-    public Patient createNote(@RequestBody Patient patient) {
-        return PatientRepository.save(patient);
-    }
-    //  get one patient
-    @GetMapping( path = "/Patient/get/{id}")
-    public Optional<Patient> getNoteById(@PathVariable(value = "id") Long patientId) {
 
-        return PatientRepository.findById(patientId);
-    }
-    //    update patient
-    @PutMapping(path = "/Patient/update/{id}")
-    public Patient updateNote(@PathVariable(value = "id") Long patientId, @RequestBody Patient patientDetails) throws PatientNotFoundException {
-        Patient patient = PatientRepository.findById(patientId).orElseThrow(() -> new PatientNotFoundException(patientId));
+    private final PatientService patientService;
 
-        patient.setName(patientDetails.getName());
-
-        Patient updatedPatient = PatientRepository.save(patient);
-        return updatedPatient;
+    public PatientController(PatientService patientService) {
+        this.patientService = patientService;
     }
 
-    //    delete patient
-    @DeleteMapping(path = "/Patient/delete{id}")
-    public ResponseEntity<?> deleteBook(@PathVariable(value = "id") Long patientId) throws PatientNotFoundException {
-        Patient patient = PatientRepository.findById(patientId)
-                .orElseThrow(() -> new PatientNotFoundException(patientId));
+    @GetMapping
+    @ResponseStatus(value= HttpStatus.OK)
+    public List<Patient> getAllPatients() {
+        return patientService.getAllPatients();
+    }
 
-        PatientRepository.delete(patient);
+    @PostMapping
+    @ResponseStatus(value = HttpStatus.CREATED)
+    public Patient createPatient(@RequestBody @Valid Patient patient) {
+        return patientService.addPatient(patient);
+    }
 
-        return ResponseEntity.ok().build();
+    @GetMapping(path = "/{id}")
+    @ResponseStatus(value = HttpStatus.OK)
+    public Patient getPatientById(@PathVariable(value = "id") Long patientId) {
+        return patientService.getPatient(patientId);
+    }
+
+    @PutMapping(path = "/{id}")
+    @ResponseStatus(value = HttpStatus.OK)
+    public Patient updatePatient(@PathVariable(value = "id") Long patientId,
+                                 @RequestBody @Valid Patient patient) {
+        return patientService.updatePatient(patientId, patient);
+    }
+
+    @DeleteMapping(path = "/{id}")
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    public void deletePatient(@PathVariable(value = "id") Long patientId) {
+        patientService.deletePatient(patientId);
     }
 }

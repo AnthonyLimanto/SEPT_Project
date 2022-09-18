@@ -12,8 +12,7 @@ import java.util.Date;
 public class Booking {
 
     @Id
-    @SequenceGenerator( name = "booking_sequence", sequenceName = "booking_sequence", allocationSize = 1)
-    @GeneratedValue (strategy = GenerationType.SEQUENCE, generator = "booking_sequence")
+    @GeneratedValue
     private Long id;
 
     @ManyToOne
@@ -29,11 +28,9 @@ public class Booking {
     private Date date;
 
     public Booking(){
-        super();
     }
 
-    public Booking(Long id, Doctor doctor, Patient patient, Date date) {
-        this.id = id;
+    public Booking(Doctor doctor, Patient patient, Date date) {
         this.doctor = doctor;
         this.patient = patient;
         this.date = date;

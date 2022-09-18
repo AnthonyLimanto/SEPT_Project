@@ -36,9 +36,9 @@ public class BookingController {
     @PostMapping(path = "/Booking/add/Doctor/{doctor_id}/Patient/{patient_id}")
     public Booking createNote(@RequestBody Booking booking,@PathVariable Long doctor_id,@PathVariable Long patient_id) throws DoctorNotFoundException, PatientNotFoundException, BookingIsNotAvailableException {
 
-        Doctor doctor = doctorRepository.findById(doctor_id).orElseThrow(() -> new DoctorNotFoundException(doctor_id));
+        Doctor doctor = doctorRepository.findById(doctor_id).orElseThrow(() -> new DoctorNotFoundException("msg"));
 
-        Patient patient = patientRepository.findById(patient_id).orElseThrow(() -> new PatientNotFoundException(patient_id));
+        Patient patient = patientRepository.findById(patient_id).orElseThrow(() -> new PatientNotFoundException("msg"));
 
         booking.setDoctor(doctor);
         booking.setPatient(patient);

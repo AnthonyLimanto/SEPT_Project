@@ -29,7 +29,7 @@ public class UnavailabilityController {
 
     @PutMapping(path = "/unavailabilities/add/{doctor_id}")
     public Unavailability addUnavailability(@PathVariable Long doctor_id, @RequestBody Unavailability unavailability)  throws DoctorNotFoundException {
-        Doctor doctor = doctorRepository.findById(doctor_id).orElseThrow(() -> new DoctorNotFoundException(doctor_id));
+        Doctor doctor = doctorRepository.findById(doctor_id).orElseThrow(() -> new DoctorNotFoundException("doctor_id"));
         doctor.addUnavailability(unavailability);
         unavailability.setDoctor(doctor);
 

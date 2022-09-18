@@ -1,6 +1,7 @@
 package com.example.sept_project.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 import java.util.List;
 
@@ -9,12 +10,13 @@ import java.util.List;
 
 public class Doctor {
     @Id
-    @SequenceGenerator( name = "doctor_sequence", sequenceName = "doctor_sequence", allocationSize = 1)
-    @GeneratedValue (strategy = GenerationType.SEQUENCE, generator = "doctor_sequence")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Doctor name can't be blank")
     private String name;
 
+    @NotBlank(message = "Clinic name can't be blank")
     private String clinic;
 
     @OneToMany (mappedBy = "doctor", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -25,11 +27,9 @@ public class Doctor {
 
 
     public Doctor(){
-        super();
     }
 
-    public Doctor(Long id, String name, String clinic) {
-        this.id = id;
+    public Doctor(String name, String clinic) {
         this.name = name;
         this.clinic = clinic;
     }
@@ -54,6 +54,10 @@ public class Doctor {
         return clinic;
     }
 
+    public void setClinic(String clinic) {
+        this.clinic = clinic;
+    }
+
     public List<Booking> getBookings() {
         return bookings;
     }
@@ -73,8 +77,8 @@ public class Doctor {
     public boolean containsUnavailabilities(Date unavailable) {
         boolean found = false;
 
-        for (int i = 0; i < this.unavailabilities.size(); i++) {
-            if (this.unavailabilities.get(i).getUnavailable().compareTo(unavailable) == 0){
+        for (int i = 0; i < this.unavailabilities.size() && !found; i++) {
+            if (this.unavailabilities.get(i).getUnavailable().compareTo(unavailable) == 0) {
                 found = true;
             }
         }
@@ -84,10 +88,6 @@ public class Doctor {
 
     public void addUnavailability(Unavailability unavailability) {
         this.unavailabilities.add(unavailability);
-    }
-
-    public void setClinic(String clinic) {
-        this.clinic = clinic;
     }
 
 }
