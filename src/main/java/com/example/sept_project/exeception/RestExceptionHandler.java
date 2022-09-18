@@ -1,4 +1,4 @@
-package com.example.sept_project.execption;
+package com.example.sept_project.exeception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -22,11 +22,20 @@ public class RestExceptionHandler {
         return errors;
     }
 
-    @ExceptionHandler(value = {PatientNotFoundException.class, DoctorNotFoundException.class})
+    @ExceptionHandler(value = {PatientNotFoundException.class, DoctorNotFoundException.class, BookingNotFoundException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public Map<String, String> handleResourceNotFoundException(RuntimeException e) {
         Map<String, String> error = new HashMap<>();
         error.put("Error:", e.getMessage());
         return error;
     }
+
+    @ExceptionHandler(value = {BookingIsNotAvailableException.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Map<String, String> handleBookingNotAvailable(BookingIsNotAvailableException e) {
+        Map<String, String> error = new HashMap<>();
+        error.put("Error:", e.getMessage());
+        return error;
+    }
+
 }

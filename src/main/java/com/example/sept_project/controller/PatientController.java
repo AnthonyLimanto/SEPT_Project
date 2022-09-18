@@ -19,32 +19,32 @@ public class PatientController {
     }
 
     @GetMapping
-    @ResponseStatus(value= HttpStatus.OK)
+    @ResponseStatus(HttpStatus.OK)
     public List<Patient> getAllPatients() {
         return patientService.getAllPatients();
     }
 
     @PostMapping
-    @ResponseStatus(value = HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.CREATED)
     public Patient createPatient(@RequestBody @Valid Patient patient) {
         return patientService.addPatient(patient);
     }
 
     @GetMapping(path = "/{id}")
-    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseStatus(HttpStatus.OK)
     public Patient getPatientById(@PathVariable(value = "id") Long patientId) {
         return patientService.getPatient(patientId);
     }
 
     @PutMapping(path = "/{id}")
-    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseStatus(HttpStatus.OK)
     public Patient updatePatient(@PathVariable(value = "id") Long patientId,
                                  @RequestBody @Valid Patient patient) {
         return patientService.updatePatient(patientId, patient);
     }
 
     @DeleteMapping(path = "/{id}")
-    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletePatient(@PathVariable(value = "id") Long patientId) {
         patientService.deletePatient(patientId);
     }

@@ -1,92 +1,54 @@
 package com.example.sept_project.controller;
 
-import com.example.sept_project.execption.BookingIsNotAvailableException;
-import com.example.sept_project.execption.BookingNotFoundException;
-import com.example.sept_project.execption.DoctorNotFoundException;
-import com.example.sept_project.execption.PatientNotFoundException;
+import com.example.sept_project.exeception.BookingNotFoundException;
 import com.example.sept_project.model.Booking;
 import com.example.sept_project.model.Doctor;
-import com.example.sept_project.model.Patient;
 import com.example.sept_project.repository.BookingRepository;
-import com.example.sept_project.repository.DoctorRepository;
-import com.example.sept_project.repository.PatientRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.sept_project.service.BookingService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
+@RequestMapping("/booking")
 public class BookingController {
-    @Autowired
-    BookingRepository BookingRepository;
+    private final BookingService bookingService;
 
-    @Autowired
-    DoctorRepository doctorRepository;
-
-    @Autowired
-    PatientRepository patientRepository;
-    //  get all notes
-    @GetMapping(path = "/Booking/getAll")
-    public List<Booking> getAllNotes() {
-        return  BookingRepository.findAll();
-    }
-    //  create booking
-    @PostMapping(path = "/Booking/add/Doctor/{doctor_id}/Patient/{patient_id}")
-    public Booking createNote(@RequestBody Booking booking,@PathVariable Long doctor_id,@PathVariable Long patient_id) throws DoctorNotFoundException, PatientNotFoundException, BookingIsNotAvailableException {
-
-        Doctor doctor = doctorRepository.findById(doctor_id).orElseThrow(() -> new DoctorNotFoundException("msg"));
-
-        Patient patient = patientRepository.findById(patient_id).orElseThrow(() -> new PatientNotFoundException("msg"));
-
-        booking.setDoctor(doctor);
-        booking.setPatient(patient);
-
-        //    checks if the booking date is in the specified doctor's unavailabilities
-//    Throws exception for now, later I want to just make it, so it tells the patient that they are unable to make a booking on this day
-        if (doctor.containsUnavailabilities(booking.getDate())) {
-            System.out.println(booking.getDoctor().getName() + " is unavailable on " + booking.getDate());
-            throw new BookingIsNotAvailableException(booking);
-        }
-
-        return BookingRepository.save(booking);
-    }
-    //  get one booking
-    @GetMapping( path = "/Booking/get/{id}")
-    public Optional<Booking> getNoteById(@PathVariable(value = "id") Long bookingId) throws BookingNotFoundException {
-        Booking booking = BookingRepository.findById(bookingId)
-                .orElseThrow(() -> new BookingNotFoundException(bookingId));
-
-        return BookingRepository.findById(bookingId);
-    }
-    //    update booking
-    @PutMapping(path = "/Booking/update/{id}")
-    public Booking updateNote(@PathVariable(value = "id") Long bookingId, @RequestBody Booking bookingDetails) throws BookingNotFoundException, BookingIsNotAvailableException {
-        Booking booking = BookingRepository.findById(bookingId).orElseThrow(() -> new BookingNotFoundException(bookingId));
-
-        booking.setDate(bookingDetails.getDate());
-        booking.setDoctor(bookingDetails.getDoctor());
-
-//    checks if the booking date is in the specified doctor's unavailabilities
-//    Throws exception for now, later I want to just make it, so it tells the patient that they are unable to make a booking on this day
-        if (booking.getDoctor().containsUnavailabilities(booking.getDate())) {
-            System.out.println(booking.getDoctor().getName() + " is unavailable on " + booking.getDate());
-            throw new BookingIsNotAvailableException(booking);
-        }
-
-        Booking updatedBooking = BookingRepository.save(booking);
-        return updatedBooking;
+    public BookingController(BookingService bookingService) {
+        this.bookingService = bookingService;
     }
 
-    //    delete booking
-    @DeleteMapping(path = "/Booking/delete{id}")
-    public ResponseEntity<?> deleteBook(@PathVariable(value = "id") Long bookingId) throws BookingNotFoundException {
-        Booking booking = BookingRepository.findById(bookingId)
-                .orElseThrow(() -> new BookingNotFoundException(bookingId));
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public List<Booking> getAllBookings() {
+        return bookingService.getAllBookings();
+    }
 
-        BookingRepository.delete(booking);
+    @PostMapping(path = "doctor/{doctor_id}/patient/{patient_id}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Booking createBooking(@RequestBody @Valid Booking booking, @PathVariable Long doctor_id, @PathVariable Long patient_id) {
+        return bookingService.addBooking(booking, doctor_id, patient_id);
+    }
 
-        return ResponseEntity.ok().build();
+    @GetMapping(path = "/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Booking getBookingById(@PathVariable(value = "id") Long bookingId) {
+        return bookingService.getBooking(bookingId);
+    }
+
+    @PutMapping(path = "/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Booking updateBooking(@PathVariable(value = "id") Long bookingId,
+                               @RequestBody @Valid Booking updatedBooking) {
+        return bookingService.updateBooking(bookingId, updatedBooking);
+    }
+
+    @DeleteMapping(path = "/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteBooking(@PathVariable(value = "id") Long bookingId) {
+        bookingService.deleteBooking(bookingId);
     }
 }

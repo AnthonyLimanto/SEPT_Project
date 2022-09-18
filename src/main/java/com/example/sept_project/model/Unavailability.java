@@ -3,6 +3,7 @@ package com.example.sept_project.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -13,6 +14,7 @@ public class Unavailability {
     @GeneratedValue
     private Long id;
 
+    @NotNull(message = "Date can't be null")
     private Date unavailable;
 
     @ManyToOne

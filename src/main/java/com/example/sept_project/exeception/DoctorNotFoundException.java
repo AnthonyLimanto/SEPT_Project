@@ -1,4 +1,4 @@
-package com.example.sept_project.execption;
+package com.example.sept_project.exeception;
 
 public class DoctorNotFoundException extends RuntimeException{
     private long doctorId;

@@ -3,6 +3,7 @@ package com.example.sept_project.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 
@@ -25,6 +26,7 @@ public class Booking {
     @JoinColumn(name = "doctor_id")
     private Doctor doctor;
 
+    @NotNull(message = "Date can't be null")
     private Date date;
 
     public Booking(){

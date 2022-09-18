@@ -1,6 +1,6 @@
 package com.example.sept_project.service;
 
-import com.example.sept_project.execption.DoctorNotFoundException;
+import com.example.sept_project.exeception.DoctorNotFoundException;
 import com.example.sept_project.model.Doctor;
 import com.example.sept_project.repository.DoctorRepository;
 import org.springframework.stereotype.Service;
@@ -48,7 +48,7 @@ public class DoctorService {
             doctorRepository.deleteById(doctorId);
         } else {
             throw new DoctorNotFoundException(
-                    String.format("Can't delete patient with id: %s, patient does not exist",
+                    String.format("Can't delete doctor with id: %s, doctor does not exist",
                             doctorId));
         }
     }

@@ -19,32 +19,32 @@ public class DoctorController {
     }
 
     @GetMapping
-    @ResponseStatus(value= HttpStatus.OK)
+    @ResponseStatus(HttpStatus.OK)
     public List<Doctor> getAllDoctors() {
         return doctorService.getAllDoctors();
     }
 
     @PostMapping
-    @ResponseStatus(value = HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.CREATED)
     public Doctor createDoctor(@RequestBody @Valid Doctor doctor) {
         return doctorService.addDoctor(doctor);
     }
 
     @GetMapping(path = "/{id}")
-    @ResponseStatus(value = HttpStatus.OK)
-    public Doctor getDoctorId(@PathVariable(value = "id") Long doctorId) {
+    @ResponseStatus(HttpStatus.OK)
+    public Doctor getDoctorById(@PathVariable(value = "id") Long doctorId) {
         return doctorService.getDoctor(doctorId);
     }
 
     @PutMapping(path = "/{id}")
-    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseStatus(HttpStatus.OK)
     public Doctor updateDoctor(@PathVariable(value = "id") Long doctorId,
                                  @RequestBody @Valid Doctor doctor) {
         return doctorService.updateDoctor(doctorId, doctor);
     }
 
     @DeleteMapping(path = "/{id}")
-    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteDoctor(@PathVariable(value = "id") Long doctorId) {
         doctorService.deleteDoctor(doctorId);
     }

@@ -1,6 +1,6 @@
 package com.example.sept_project.service;
 
-import com.example.sept_project.execption.PatientNotFoundException;
+import com.example.sept_project.exeception.PatientNotFoundException;
 import com.example.sept_project.model.Patient;
 import com.example.sept_project.repository.PatientRepository;
 import org.springframework.stereotype.Service;
