@@ -8,7 +8,7 @@ class AppointmentForm extends StatefulWidget {
 }
 
 class AppointmentFormState extends State<AppointmentForm> {
-  final _formKey = GlobalKey<AppointmentFormState>();
+  final _formKey = GlobalKey<FormState>();
 
   /* Contains the form values */
   final _fields = {
@@ -17,25 +17,40 @@ class AppointmentFormState extends State<AppointmentForm> {
   };
 
   void onSubmit() {
-    print(_fields);
+    final isValid = _formKey.currentState!.validate();
+
+    if (isValid) {
+      print(_fields);
+    }
   }
 
   Widget buildSymptoms() => TextFormField(
     decoration: const InputDecoration(
         labelText: "Symptoms"
     ),
-    onChanged: (value) {setState(() {
-      _fields["symptoms"] = value;
-    });},
+    onChanged: (value) {
+      setState(() {_fields["symptoms"] = value;});
+    },
+    validator: (value) {
+      if (value == null || value.isEmpty) {
+        return "Please provide symptoms";
+      }
+      return null;
+    },
   );
 
   Widget buildDescription() => TextFormField(
     decoration: const InputDecoration(
       labelText: "Description"
     ),
-    onChanged: (value) {setState(() {
-      _fields["description"] = value;
-      });
+    onChanged: (value) {
+      setState(() {_fields["description"] = value;});
+    },
+    validator: (value) {
+      if (value == null || value.isEmpty) {
+        return "Please provide a brief description of how you are feeling";
+      }
+      return null;
     },
   );
 
@@ -53,11 +68,15 @@ class AppointmentFormState extends State<AppointmentForm> {
           key: _formKey,
           child: Column(
             children: <Widget>[
-              /* Symptoms */
+              // Todo: Add a date selector
+
+              // Symptoms field
               buildSymptoms(),
 
-              /* Describe how you feel */
+              // Description field
               buildDescription(),
+
+              // Todo: Add a doctor dropdown selector
 
               /* Submit button */
               buildSubmit(),
