@@ -16,53 +16,55 @@ class AppointmentFormState extends State<AppointmentForm> {
     "description": "",
   };
 
-  handleSubmit() {
+  void onSubmit() {
     print(_fields);
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
+  Widget buildSymptoms() => TextFormField(
+    decoration: const InputDecoration(
+        labelText: "Symptoms"
+    ),
+    onChanged: (value) {setState(() {
+      _fields["symptoms"] = value;
+    });},
+  );
+
+  Widget buildDescription() => TextFormField(
+    decoration: const InputDecoration(
+      labelText: "Description"
+    ),
+    onChanged: (value) {setState(() {
+      _fields["description"] = value;
+      });
+    },
+  );
+
+  Widget buildSubmit() => ElevatedButton(
+    onPressed: onSubmit,
+    child: const Text("Submit")
+  );
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Column(
-          children: <Widget>[
-            /* Symptoms */
-            TextFormField(
-              onChanged: (String value) {
-                _fields["symptoms"] = value;
-              },
-              decoration: const InputDecoration(
-                labelText: "Symptoms"
-              ),
-            ),
+      body: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: <Widget>[
+              /* Symptoms */
+              buildSymptoms(),
 
-            /* Describe how you feel */
-            TextFormField(
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return "Please enter some text";
-                }
-                return null;
-              },
-              onChanged: (String value) {
-                _fields["description"] = value;
-              },
-              decoration: const InputDecoration(
-                labelText: "Describe how you feel"
-              ),
-            ),
+              /* Describe how you feel */
+              buildDescription(),
 
-            /* Submit button */
-            ElevatedButton(
-                onPressed: handleSubmit,
-                child: const Text("Submit")
-            )
-          ],
+              /* Submit button */
+              buildSubmit(),
+            ],
+          ),
         ),
+      ),
     );
   }
 }
