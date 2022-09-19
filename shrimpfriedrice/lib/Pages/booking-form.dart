@@ -10,26 +10,74 @@ class AppointmentForm extends StatefulWidget {
 class AppointmentFormState extends State<AppointmentForm> {
   final _formKey = GlobalKey<FormState>();
 
-  /* Contains the form values */
-  final _fields = {
-    "symptoms": "",
-    "description": "",
-  };
+  DateTime dateTimeField = DateTime.now();
+  String symptomsField = "";
+  String descriptionField = "";
 
   void onSubmit() {
     final isValid = _formKey.currentState!.validate();
 
     if (isValid) {
-      print(_fields);
+      // Todo: API request or something
+      return;
     }
   }
+
+  // Date picker function - Opens popup
+  Future<DateTime?> chooseDate() => showDatePicker(
+    context: context,
+    initialDate: dateTimeField,
+    firstDate: DateTime.now(),
+    lastDate: DateTime(dateTimeField.year + 1),
+  );
+
+  // Time picker function - Opens popup
+  Future<TimeOfDay?> chooseTime() => showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.fromDateTime(dateTimeField),
+  );
+  
+  String getDateTimeToString() {
+    return "${dateTimeField.day}/${dateTimeField.month}/${dateTimeField.year} "
+        "${dateTimeField.hour.toString().padLeft(2, "0")}:${dateTimeField.minute.toString().padLeft(2, "0")}";
+  }
+
+  // Date picker button
+  Widget buildDateSelector() => ElevatedButton(
+      onPressed: () async {
+        // Open date picker window
+        final date = await chooseDate();
+        if (date == null) {
+          return; // User clicked cancel
+        }
+
+        // Open time picker window
+        final time = await chooseTime();
+        if (time == null) {
+          return;
+        }
+
+        // Construct new dateTime
+        DateTime newDateTime = DateTime(
+          date.year,
+          date.month,
+          date.day,
+          time.hour,
+          time.minute
+        );
+
+        // Update dateTime
+        setState(() => dateTimeField = newDateTime);
+      },
+      child: Text(getDateTimeToString())
+  );
 
   Widget buildSymptoms() => TextFormField(
     decoration: const InputDecoration(
         labelText: "Symptoms"
     ),
     onChanged: (value) {
-      setState(() {_fields["symptoms"] = value;});
+      setState(() {symptomsField = value;});
     },
     validator: (value) {
       if (value == null || value.isEmpty) {
@@ -44,7 +92,7 @@ class AppointmentFormState extends State<AppointmentForm> {
       labelText: "Description"
     ),
     onChanged: (value) {
-      setState(() {_fields["description"] = value;});
+      setState(() {descriptionField = value;});
     },
     validator: (value) {
       if (value == null || value.isEmpty) {
@@ -68,7 +116,13 @@ class AppointmentFormState extends State<AppointmentForm> {
           key: _formKey,
           child: Column(
             children: <Widget>[
-              // Todo: Add a date selector
+              // Date and time selector
+              Row(
+                children: <Widget>[
+                  const Text("Date and time of appointment: "),
+                  buildDateSelector(),
+                ],
+              ),
 
               // Symptoms field
               buildSymptoms(),
