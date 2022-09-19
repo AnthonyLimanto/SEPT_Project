@@ -1,6 +1,8 @@
 package com.example.sept_project.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -8,22 +10,26 @@ import java.util.List;
 
 public class Doctor {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Doctor name can't be blank")
     private String name;
 
+    @NotBlank(message = "Clinic name can't be blank")
     private String clinic;
 
-    @OneToMany (mappedBy = "id", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany (mappedBy = "doctor", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Booking> bookings;
 
+    @OneToMany (mappedBy = "doctor", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Unavailability> unavailabilities;
+
+
     public Doctor(){
-        super();
     }
 
-    public Doctor(Long id, String name, String clinic) {
-        this.id = id;
+    public Doctor(String name, String clinic) {
         this.name = name;
         this.clinic = clinic;
     }
@@ -50,6 +56,38 @@ public class Doctor {
 
     public void setClinic(String clinic) {
         this.clinic = clinic;
+    }
+
+    public List<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
+    }
+
+    public List<Unavailability> getUnavailabilities() {
+        return unavailabilities;
+    }
+
+    public void setUnavailabilities(List<Unavailability> unavailabilities) {
+        this.unavailabilities = unavailabilities;
+    }
+
+    public boolean containsUnavailabilities(Date unavailable) {
+        boolean found = false;
+
+        for (int i = 0; i < this.unavailabilities.size() && !found; i++) {
+            if (this.unavailabilities.get(i).getUnavailable().compareTo(unavailable) == 0) {
+                found = true;
+            }
+        }
+
+        return found;
+    }
+
+    public void addUnavailability(Unavailability unavailability) {
+        this.unavailabilities.add(unavailability);
     }
 
 }

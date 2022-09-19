@@ -1,7 +1,11 @@
 package com.example.sept_project.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
+
 
 
 @Entity
@@ -13,21 +17,22 @@ public class Booking {
     private Long id;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "patient_id")
     private Patient patient;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "doctor_id")
     private Doctor doctor;
 
+    @NotNull(message = "Date can't be null")
     private Date date;
 
     public Booking(){
-        super();
     }
 
-    public Booking(Long id, Doctor doctor, Patient patient, Date date) {
-        this.id = id;
+    public Booking(Doctor doctor, Patient patient, Date date) {
         this.doctor = doctor;
         this.patient = patient;
         this.date = date;
@@ -47,6 +52,14 @@ public class Booking {
 
     public void setDoctor(Doctor doctor) {
         this.doctor = doctor;
+    }
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
     }
 
     public Date getDate() {
