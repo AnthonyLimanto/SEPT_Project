@@ -22,9 +22,13 @@ class MedicationListItem extends StatefulWidget {
 }
 
 class MedicationListItemState extends State<MedicationListItem> {
-  DateTime time = DateTime.utc(2022, 11, 1);
-  String medication = "Paracetamol 665mg Caplets";
+  String medication = "Paracetamol (Panadol) 665mg Caplets";
   String dose = "Take 2 Caplets Three Times a Day.";
+  String use = "For Arthritic Pain relief";
+  String blank = "";
+  String medication2 = "Perindopril (Coversyl) 10mg Tablet";
+  String dose2 = "Take 1 Tablet in the morning.";
+  String use2 = "To reduce Blood Pressure";
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +37,11 @@ class MedicationListItemState extends State<MedicationListItem> {
       children: <Widget>[
         Text(medication),
         Text(dose),
+        Text(use),
+        Text(blank),
+        Text(medication2),
+        Text(dose2),
+        Text(use2),
       ],
     );
   }
