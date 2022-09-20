@@ -28,10 +28,12 @@ public class PatientTests {
     String test_patient_1, test_patient_2;
 
 
+    // Test Patients added before each @Test
     @BeforeEach
     void setUp() throws Exception {
         test_patient_1 = "{\"id\":1,\"name\":\"Steve Smith\"}";
         test_patient_2 = "{\"id\":2,\"name\":\"Michelle Dalvir\"}";
+        // Post both doctors to the endpoint
         this.mockMvc.perform(MockMvcRequestBuilders
                         .post("/Patient/add")
                         .content(test_patient_1)
@@ -46,8 +48,10 @@ public class PatientTests {
 
 
 
+    // Request that all patients equal the patients added in @BeforeEach
     @Test
     void getAllPatientsRequest() throws Exception {
+        // Expected returned content
         String expected_string = "[" + test_patient_1 + "," + test_patient_2 + "]";
         request = this.mockMvc.perform(MockMvcRequestBuilders
                         .get("/Patient/getAll")
@@ -55,10 +59,16 @@ public class PatientTests {
                         .accept(MediaType.APPLICATION_JSON))
                         .andExpect(status().isOk())
                         .andReturn();
+
+        // Return content in form of string
         content = request.getResponse().getContentAsString();
+
+        // Compare the expected string with content returned
         assertEquals(expected_string, content);
     }
 
+
+    // Adding a patient to DB
     @Test
     void addPatientRequest() throws Exception {
         final String new_patient = "{\"id\":3,\"name\":\"Joe M'bappe\"}";
@@ -70,19 +80,25 @@ public class PatientTests {
                         .andExpect(status().isOk())
                         .andReturn();
         content = request.getResponse().getContentAsString();
+
+        // Check that the patient is equal to the patient added
         assertEquals(new_patient, content);
     }
 
+    // Update a Patient given the patient ID
     @Test
     void updatePatientRequest() throws Exception {
         final String updated_patient = "{\"id\":1,\"name\":\"Steve Tyler\"}";
         request = this.mockMvc.perform(MockMvcRequestBuilders
+                        // Get the patient to update
                         .get("/Patient/update/1")
                         .content(updated_patient)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                         .andExpect(status().isOk())
                         .andReturn();
+
+        // Content of the returned request is equal to the updated patient
         content = request.getResponse().getContentAsString();
         assertEquals(updated_patient, content);
 
@@ -100,6 +116,7 @@ public class PatientTests {
         assertEquals("", content);
     }
 
+    // Delete a Patient given the ID
     @Test
     void getSpecificPatientRequest() throws Exception {
         request = this.mockMvc.perform(MockMvcRequestBuilders
@@ -108,6 +125,8 @@ public class PatientTests {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn();
+
+        // Check that nothing is returned but the request status.isOK()
         content = request.getResponse().getContentAsString();
         assertEquals(test_patient_1, content);
     }
