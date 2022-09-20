@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shrimpfriedrice/Components/appointmentList.dart';
+import 'package:shrimpfriedrice/Components/appointment_list.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);

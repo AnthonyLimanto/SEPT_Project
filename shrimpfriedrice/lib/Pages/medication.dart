@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shrimpfriedrice/Components/medicationList.dart';
+import 'package:shrimpfriedrice/Components/medication_list.dart';
 
 class Medication extends StatefulWidget {
   const Medication({Key? key}) : super(key: key);
