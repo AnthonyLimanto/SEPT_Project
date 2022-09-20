@@ -1,73 +1,129 @@
 package com.example.sept_project;
 
 import com.example.sept_project.controller.DoctorController;
-import com.example.sept_project.model.Doctor;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.*;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+
 @SpringBootTest
+@AutoConfigureMockMvc
 class DoctorTests {
 
 
 	// Create new doctors that will be used in the tests
+
+
 	@Autowired
-	DoctorController doctorController;
-	Doctor test_doctor_1 = new Doctor(00L, "Joe Grech", "Altona");
-	Doctor test_doctor_2 = new Doctor(001L, "Kermi Sexton", "Williamstown");
-	Doctor test_doctor_3 = new Doctor(002L, "Robert Falzon", "Yarraville");
-	Doctor test_doctor_4 = new Doctor(003L, "Mitch Price", "Tarneit");
-	Doctor test_doctor_5 = new Doctor(004L, "Michelle Ebinger", "Point Cook");
+	private MockMvc mockMvc;
+	MvcResult request;
+	String content;
+	String test_doctor_1, test_doctor_2;
 
 
+	@Autowired
+	private DoctorController test_controller;
 
-	// Test that the controller is being Autowired (Created and is not null).
-	@Test
-	void contextLoads() {
-		assertThat(doctorController).isNotNull();
+	@BeforeEach
+	void setUp() throws Exception {
+		test_doctor_1 = "{\"id\":1,\"name\":\"Jeremy Long\",\"clinic\":\"Altona medical\"}";
+		test_doctor_2 = "{\"id\":2,\"name\":\"Saral Rohit\",\"clinic\":\"Williams Landing\"}";
+		this.mockMvc.perform(MockMvcRequestBuilders
+				.post("/Doctor/add")
+				.content(test_doctor_1)
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON));
+		this.mockMvc.perform(MockMvcRequestBuilders
+				.post("/Doctor/add")
+				.content(test_doctor_2)
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON));
+
 	}
+
+	@Test
+	void getAllDoctorsRequest() throws Exception {
+		String expected_string = "[" + test_doctor_1 + "," + test_doctor_2 + "]";
+		request = this.mockMvc.perform(MockMvcRequestBuilders
+						.get("/Doctor/getAll")
+						.contentType(MediaType.APPLICATION_JSON)
+						.accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk())
+				.andReturn();
+		content = request.getResponse().getContentAsString();
+		assertEquals(expected_string, content);
+	}
+
 
 
 
 	// Check if a doctor is able to be added to the JPA Repository.
 	@Test
-	void addingDoctorToDB(){
-		doctorController.createNote(new Doctor(00L, "Joe Grech", "Altona"));
-		List<Doctor> test_list = doctorController.getAllNotes();
-		assertThat(test_list != null);
+	void addingDoctorToDBRequest() throws Exception {
+		final String new_Doctor = "{\"id\":3,\"name\":\"George Big\",\"clinic\":\"Yarraville\"}";
+		request = this.mockMvc.perform(MockMvcRequestBuilders
+				.post("/Doctor/add")
+				.content(new_Doctor)
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk())
+				.andReturn();
+		content = request.getResponse().getContentAsString();
+		assertEquals(content, new_Doctor);
 	}
 
 
-	// Test that for each doctor that is added to the repository the size increases by 1
+
 	@Test
-	void addingMultipleDoctors(){
-		doctorController.createNote(test_doctor_1);
-		doctorController.createNote(test_doctor_2);
-		doctorController.createNote(test_doctor_3);
-		doctorController.createNote(test_doctor_3);
-		doctorController.createNote(test_doctor_3);
-		List<Doctor> test_list = doctorController.getAllNotes();
-		assertThat(test_list.size() == 5);
+	void deleteDoctorRequest() throws Exception {
+		request = this.mockMvc.perform(MockMvcRequestBuilders
+					.delete("/Doctor/delete2")
+					.accept(MediaType.APPLICATION_JSON))
+					.andExpect(status().isOk())
+					.andReturn();
+		content = request.getResponse().getContentAsString();
+		assertEquals("", content);
 	}
 
-	// Test that if a Doctor added with an ID is present in the JPA
 	@Test
-	void getDoctor(){
-		doctorController.createNote(test_doctor_1);
-		assertThat(doctorController.getNoteById(00L).isPresent());
+	void getSpecificDoctorRequest() throws Exception {
+		request = this.mockMvc.perform(MockMvcRequestBuilders
+						.get("/Doctor/get/1")
+						.accept(MediaType.APPLICATION_JSON))
+						.andExpect(status().isOk())
+				.andReturn();
+		content = request.getResponse().getContentAsString();
+
+		assertEquals(test_doctor_1,content);
 	}
 
-	// Test that the doctor added can be retrieved by the JPA
 	@Test
-	void getSpecificDoctor(){
-		doctorController.createNote(test_doctor_1);
-		List<Doctor> test_doctor = doctorController.getAllNotes();
-		assertThat(test_doctor.get(0).getId() == test_doctor_1.getId());
+	void updateDoctorRequest() throws Exception {
+		final String update_title = "{\"id\":1,\"name\":\"Jase Gomez\",\"clinic\":\"Tarneit Medical\"}";
+		request = this.mockMvc.perform(MockMvcRequestBuilders
+						.get("/Doctor/update/1")
+						.content(update_title)
+						.contentType(MediaType.APPLICATION_JSON)
+						.accept(MediaType.APPLICATION_JSON))
+						.andExpect(status().isOk())
+				.andReturn();
+		content = request.getResponse().getContentAsString();
+		assertEquals(update_title,content);
 	}
+
+
 
 
 
