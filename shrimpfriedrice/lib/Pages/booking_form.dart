@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class AppointmentForm extends StatefulWidget {
-  const AppointmentForm({Key? key}) : super(key: key);
+class BookingForm extends StatefulWidget {
+  const BookingForm({Key? key}) : super(key: key);
 
   @override
-  AppointmentFormState createState() => AppointmentFormState();
+  BookingFormState createState() => BookingFormState();
 }
 
-class AppointmentFormState extends State<AppointmentForm> {
+class BookingFormState extends State<BookingForm> {
   final _formKey = GlobalKey<FormState>();
 
   DateTime dateTimeField = DateTime.now();
@@ -15,10 +15,11 @@ class AppointmentFormState extends State<AppointmentForm> {
   String descriptionField = "";
 
   void onSubmit() {
+    // Validate the form
     final isValid = _formKey.currentState!.validate();
 
     if (isValid) {
-      // Todo: API request or something
+      // Todo: API request
       return;
     }
   }
@@ -77,7 +78,9 @@ class AppointmentFormState extends State<AppointmentForm> {
         labelText: "Symptoms"
     ),
     onChanged: (value) {
-      setState(() {symptomsField = value;});
+      setState(() {
+        symptomsField = value;
+      });
     },
     validator: (value) {
       if (value == null || value.isEmpty) {
@@ -92,7 +95,9 @@ class AppointmentFormState extends State<AppointmentForm> {
       labelText: "Description"
     ),
     onChanged: (value) {
-      setState(() {descriptionField = value;});
+      setState(() {
+        descriptionField = value;
+      });
     },
     validator: (value) {
       if (value == null || value.isEmpty) {
