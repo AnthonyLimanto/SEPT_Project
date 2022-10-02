@@ -1,5 +1,5 @@
-package com.example.sept_project.repository;
-import com.example.sept_project.model.Unavailability;
+package com.example.sept_project.BookingREST_Microservice.repository;
+import com.example.sept_project.BookingREST_Microservice.model.Unavailability;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

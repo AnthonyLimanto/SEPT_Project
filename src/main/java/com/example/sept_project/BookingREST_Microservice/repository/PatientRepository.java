@@ -1,5 +1,5 @@
-package com.example.sept_project.repository;
-import com.example.sept_project.model.Patient;
+package com.example.sept_project.BookingREST_Microservice.repository;
+import com.example.sept_project.BookingREST_Microservice.model.Patient;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 @Repository

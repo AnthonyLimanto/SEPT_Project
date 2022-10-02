@@ -1,7 +1,7 @@
-package com.example.sept_project.controller;
+package com.example.sept_project.BookingREST_Microservice;
 
-import com.example.sept_project.model.Unavailability;
-import com.example.sept_project.service.UnavailabilityService;
+import com.example.sept_project.BookingREST_Microservice.model.Unavailability;
+import com.example.sept_project.BookingREST_Microservice.service.UnavailabilityService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 

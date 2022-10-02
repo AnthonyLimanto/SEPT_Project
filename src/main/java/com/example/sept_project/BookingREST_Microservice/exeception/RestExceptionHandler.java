@@ -1,4 +1,4 @@
-package com.example.sept_project.exeception;
+package com.example.sept_project.BookingREST_Microservice.exeception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;

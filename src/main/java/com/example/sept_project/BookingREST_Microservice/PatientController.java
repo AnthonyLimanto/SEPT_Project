@@ -1,7 +1,7 @@
-package com.example.sept_project.controller;
+package com.example.sept_project.BookingREST_Microservice;
 
-import com.example.sept_project.model.Patient;
-import com.example.sept_project.service.PatientService;
+import com.example.sept_project.BookingREST_Microservice.model.Patient;
+import com.example.sept_project.BookingREST_Microservice.service.PatientService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 

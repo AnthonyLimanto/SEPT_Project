@@ -1,8 +1,8 @@
-package com.example.sept_project.service;
+package com.example.sept_project.BookingREST_Microservice.service;
 
-import com.example.sept_project.exeception.PatientNotFoundException;
-import com.example.sept_project.model.Patient;
-import com.example.sept_project.repository.PatientRepository;
+import com.example.sept_project.BookingREST_Microservice.exeception.PatientNotFoundException;
+import com.example.sept_project.BookingREST_Microservice.model.Patient;
+import com.example.sept_project.BookingREST_Microservice.repository.PatientRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

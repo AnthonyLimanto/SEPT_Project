@@ -1,4 +1,4 @@
-package com.example.sept_project.exeception;
+package com.example.sept_project.BookingREST_Microservice.exeception;
 
 public class BookingNotFoundException extends RuntimeException{
     private long bookingId;

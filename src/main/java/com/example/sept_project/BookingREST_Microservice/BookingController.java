@@ -1,12 +1,8 @@
-package com.example.sept_project.controller;
+package com.example.sept_project.BookingREST_Microservice;
 
-import com.example.sept_project.exeception.BookingNotFoundException;
-import com.example.sept_project.model.Booking;
-import com.example.sept_project.model.Doctor;
-import com.example.sept_project.repository.BookingRepository;
-import com.example.sept_project.service.BookingService;
+import com.example.sept_project.BookingREST_Microservice.model.Booking;
+import com.example.sept_project.BookingREST_Microservice.service.BookingService;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;

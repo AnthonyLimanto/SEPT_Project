@@ -1,4 +1,4 @@
-package com.example.sept_project.model;
+package com.example.sept_project.BookingREST_Microservice.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
