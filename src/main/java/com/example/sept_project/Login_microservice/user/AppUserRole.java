@@ -1,7 +1,8 @@
 package com.example.sept_project.Login_microservice.user;
 
-public enum UserRole {
+public enum AppUserRole {
     PATIENT,
-    DOCTOR
+    DOCTOR,
+    ADMIN
 
 }
