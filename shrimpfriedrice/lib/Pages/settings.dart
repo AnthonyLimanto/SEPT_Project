@@ -37,7 +37,7 @@ class SettingsState extends State<Settings> {
               padding: EdgeInsets.only(
                   right: 20,
                   left: 20,
-                  top: MediaQuery.of(context).size.height * 0.27),
+                  top: MediaQuery.of(context).size.height * 0.20),
               child: Column(children: [
                 TextField(
                   decoration: InputDecoration(
