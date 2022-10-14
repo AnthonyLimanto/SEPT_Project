@@ -27,9 +27,9 @@ class MedicationState extends State<Medication> {
       TextButton(
         style: textButtonStyle,
         onPressed: () {
-          Navigator.pushNamed(context, 'login');
+          Navigator.pushNamed(context, 'home');
         },
-        child: const Text("Medication"),
+        child: const Text("Return to Home"),
       ),
     ]));
   }
