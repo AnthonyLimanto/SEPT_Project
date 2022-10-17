@@ -1,28 +1,26 @@
 package com.example.sept_project.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Entity
 @Table(name = "Patient")
 public class Patient {
     @Id
-    @SequenceGenerator( name = "patient_sequence", sequenceName = "patient_sequence", allocationSize = 1)
-    @GeneratedValue (strategy = GenerationType.SEQUENCE, generator = "patient_sequence")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Name not acceptable")
     private String name;
 
-    @OneToMany (mappedBy = "id", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany (mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Booking> bookings;
 
     public Patient(){
-        super();
     }
 
-
-    public Patient(Long id, String name) {
-        this.id = id;
+    public Patient(String name) {
         this.name = name;
     }
 
@@ -37,6 +35,19 @@ public class Patient {
     public String getName() {
         return name;
     }
+
+    public List<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
+    }
+
+    public void addBookings(Booking booking) {
+        this.bookings.add(booking);
+    }
+
 
     public void setName(String name) {
         this.name = name;
