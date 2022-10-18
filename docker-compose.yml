@@ -1,4 +1,4 @@
-version: "3.8"
+version: "3.9"
 
 services:
   mysqldb:
@@ -19,7 +19,6 @@ services:
       - mysqldb
     build: ./booking-service
     restart: on-failure
-    env_file: ./.env
     ports:
       - '8080:8080'
   user:
@@ -27,6 +26,5 @@ services:
       - mysqldb
     build: ./user-service
     restart: on-failure
-    env_file: ./.env
     ports:
       - '8081:8080'
