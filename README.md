@@ -6,7 +6,7 @@
 + API can be interacted with via Postman or similiar
 
 
-#Fronten
+# Frontend
 + Ran using front-end folder 
 + Open up terminal in file directory
 + open -a Simulator (on mac) to open up the iPhone simulator 
