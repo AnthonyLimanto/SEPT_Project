@@ -3,6 +3,7 @@ package com.example.sept_project.BookingREST_Microservice;
 import com.example.sept_project.BookingREST_Microservice.model.Booking;
 import com.example.sept_project.BookingREST_Microservice.service.BookingService;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -28,6 +29,7 @@ public class BookingController {
     public Booking createBooking(@RequestBody @Valid Booking booking, @PathVariable Long doctor_id, @PathVariable Long patient_id) {
         return bookingService.addBooking(booking, doctor_id, patient_id);
     }
+
 
     @GetMapping(path = "/{id}")
     @ResponseStatus(HttpStatus.OK)
