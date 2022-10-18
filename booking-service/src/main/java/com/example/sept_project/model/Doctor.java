@@ -19,10 +19,10 @@ public class Doctor {
     @NotBlank(message = "Clinic name can't be blank")
     private String clinic;
 
-    @OneToMany (mappedBy = "doctor", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany (mappedBy = "doctor", cascade = CascadeType.ALL)
     private List<Booking> bookings;
 
-    @OneToMany (mappedBy = "doctor", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany (mappedBy = "doctor", cascade = CascadeType.ALL)
     private List<Unavailability> unavailabilities;
 
 

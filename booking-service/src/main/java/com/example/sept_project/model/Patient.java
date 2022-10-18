@@ -14,7 +14,7 @@ public class Patient {
     @NotBlank(message = "Name not acceptable")
     private String name;
 
-    @OneToMany (mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany (mappedBy = "patient")
     private List<Booking> bookings;
 
     public Patient(){
