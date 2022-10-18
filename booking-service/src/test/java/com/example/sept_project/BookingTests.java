@@ -19,9 +19,9 @@ public class BookingTests {
     @Autowired
     BookingController bookingController;
 
-    Doctor test_doctor_1 = new Doctor(00L, "George Smith", "Altona");
-    Patient test_patient_1 = new Patient(01L, "Fiona Scott");
-    Booking test_booking_1 = new Booking(100L, test_doctor_1, test_patient_1, new Date());
+    Doctor test_doctor_1 = new Doctor("George Smith", "Altona");
+    Patient test_patient_1 = new Patient("Fiona Scott");
+    Booking test_booking_1 = new Booking(test_doctor_1, test_patient_1, new Date());
 
     @Test
     void contextLoads() {
